@@ -9,7 +9,7 @@ public class TestExpressions {
     public static void main(String[] args) {
         //(6 + 7) * -8
         System.out.println(
-            new TimesExpr(
+            new TimesExpr( // Constructed as a tree
                 new PlusExpr(
                     new ConstantExpr(6),
                     new ConstantExpr(7)

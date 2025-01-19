@@ -19,7 +19,8 @@ public class TestExpressions {
 
     // from Java 21
     static int eval(Expr expr) {
-        return switch (expr) {
+        return switch (expr) { // depending on the type of the expression, it does different things. It is collected in one single place, rather than across different classes.
+            // switch statement, pattern matching, data-oriented programming rather than object oriented programming
             case ConstantExpr(var i) -> i;
             case PlusExpr(var a, var b) -> eval(a) + eval(b);
             case TimesExpr(var a, var b) -> eval(a) * eval(b);
@@ -33,7 +34,7 @@ public class TestExpressions {
 }
 
 
-record ConstantExpr(int i) implements Expr {
+record ConstantExpr(int i) implements Expr { // stores data, no manipulation. Gives us the structure of the data.
 }
 
 record PlusExpr(Expr a, Expr b) implements Expr {

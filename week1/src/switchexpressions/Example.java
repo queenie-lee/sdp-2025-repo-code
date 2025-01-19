@@ -12,11 +12,11 @@ public class Example {
     static void expression1(Day day){
         final int numLetters;
         switch (day) {
-            case MONDAY:
-            case FRIDAY:
+            case MONDAY: // falls through
+            case FRIDAY: // falls through
             case SUNDAY:
                 numLetters = 6;
-                break;
+                break; // break terminates the switch statement.
             case TUESDAY:
                 numLetters = 7;
                 break;
@@ -35,8 +35,8 @@ public class Example {
 
     static void expression2(Day day) {
         final int numLetters;
-        switch (day) {
-            case MONDAY, FRIDAY, SUNDAY -> numLetters = 6;
+        switch (day) { // new revised version of switch statement
+            case MONDAY, FRIDAY, SUNDAY -> numLetters = 6; // gets rid of the break statement, no fall throughs. All branches are now independent
             case TUESDAY -> numLetters = 7;
             case THURSDAY, SATURDAY -> numLetters = 8;
             case WEDNESDAY -> numLetters = 9;
@@ -47,7 +47,7 @@ public class Example {
 
     static void expression3(Day day) {
         System.out.println(
-            switch (day) {
+            switch (day) { // Right hand side contains an expression, rather than an assignment
                 case MONDAY, FRIDAY, SUNDAY -> 6;
                 case TUESDAY -> 7;
                 case THURSDAY, SATURDAY -> 8;
@@ -71,9 +71,9 @@ public class Example {
                 System.out.println(6);
                 yield 6;
             }
-            case TUESDAY -> {
+            case TUESDAY -> { // using a block expression
                 System.out.println(7);
-                yield 7;
+                yield 7; // only used in switches, acts like a return
             }
             case THURSDAY,
                 SATURDAY -> {

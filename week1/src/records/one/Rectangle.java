@@ -1,7 +1,7 @@
 package records.one;
 
 public final class Rectangle {
-    private final double length;
+    private final double length; // final makes these two variables immutable
     private final double width;
 
     public Rectangle(double length, double width) {
