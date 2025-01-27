@@ -24,7 +24,7 @@ public class NameTestNew {
             return "\nName: " + p.getGivenName() + " "
                     + p.getSurname() + "\n" +
                     "Age: " + p.getAge() + " " + "Gender: "
-                    + p.getGender() + "\n" +
+                    + p.getSex() + "\n" +
                     "EMail: " + p.getEmail() + "\n" +
                     "Phone: " + p.getPhone() + "\n" +
                     "Address: " + p.getAddress();
@@ -33,7 +33,7 @@ public class NameTestNew {
         Function<Person, String> style2 = p -> "\nName: "
                 + p.getSurname() + " "
                 + p.getGivenName() + "\n" + "Age: " + p.getAge() + " " +
-                "Gender: " + p.getGender() + "\n" +
+                "Gender: " + p.getSex() + "\n" +
                 "EMail: " + p.getEmail() + "\n" +
                 "Phone: " + p.getPhone() + "\n" +
                 "Address: " + p.getAddress();

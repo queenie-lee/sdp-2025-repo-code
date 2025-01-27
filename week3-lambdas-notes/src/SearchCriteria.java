@@ -22,7 +22,7 @@ public class SearchCriteria {
     private void initSearchMap() {
         Predicate<Person> allDrivers = p -> p.getAge() >= LOW;
         Predicate<Person> allDraftees = p -> p.getAge() >= START
-                && p.getAge() <= END && p.getGender() == Gender.MALE;
+                && p.getAge() <= END && p.getSex() == Person.Sex.MALE;
         Predicate<Person> allPilots = p -> p.getAge() >= MID
                 && p.getAge() <= RETIRED;
 

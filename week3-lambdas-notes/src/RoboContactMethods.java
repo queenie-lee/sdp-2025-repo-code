@@ -13,7 +13,7 @@ public class RoboContactMethods {
     public void emailDraftees(List<Person> pl) {
         for (Person p : pl) {
             if (p.getAge() >= 18 && p.getAge() <= 25
-                    && p.getGender() == Gender.MALE) {
+                    && p.getSex() == Person.Sex.MALE) {
                 roboEmail(p);
             }
         }

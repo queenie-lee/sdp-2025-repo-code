@@ -11,7 +11,7 @@ public class RoboCallTest04 {
         // Predicates
         Predicate<Person> allDrivers = p -> p.getAge() >= 16;
         Predicate<Person> allDraftees = p -> p.getAge() >= 18
-                && p.getAge() <= 25 && p.getGender() == Gender.MALE;
+                && p.getAge() <= 25 && p.getSex() == Person.Sex.MALE;
         Predicate<Person> allPilots =
                 p -> p.getAge() >= 23 && p.getAge() <= 65;
 

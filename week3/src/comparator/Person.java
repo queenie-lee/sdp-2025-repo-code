@@ -3,7 +3,7 @@ package comparator;
 public class Person {
     private final String first;
     private final String last;
-    private String middle;
+    private final String middle;
 
     public Person(String first, String middle, String last) {
         this.first = first;
@@ -12,8 +12,7 @@ public class Person {
     }
 
     public Person(String first, String last) {
-        this.first = first;
-        this.last = last;
+        this(first, null, last);
     }
 
     public String getFirstName() {
@@ -29,11 +28,9 @@ public class Person {
     }
 
     public String getName() {
-        if (middle == null) {
-            return first + " " + last;
-        } else {
-            return first + " " + middle + " " + last;
-        }
+        return middle == null
+            ? first + " " + last
+            : first + " " + middle + " " + last;
     }
 
     public String toString() {

@@ -32,7 +32,7 @@ public class RoboContactMethods2 {
 
     public boolean isDraftee(Person p) {
         return p.getAge() >= 18
-                && p.getAge() <= 25 && p.getGender() == Gender.MALE;
+                && p.getAge() <= 25 && p.getSex() == Person.Sex.MALE;
     }
 
     public boolean isPilot(Person p) {

@@ -24,7 +24,7 @@ public class RoboCallTest03 {
                     @Override
                     public boolean test(Person p) {
                         return p.getAge() >= 18 && p.getAge() <= 25
-                                && p.getGender() == Gender.MALE;
+                                && p.getSex() == Person.Sex.MALE;
                     }
                 }
         );

@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.function.Function;
 
 public class FunctionExample {
-    public static void main(String[] args) {
 
+    public static void main(String... args) {
         displayCurrencyCode(currency -> getCurrencyRateForCurrencyCode(currency));
     }
 
@@ -16,7 +16,7 @@ public class FunctionExample {
 
     private static BigDecimal getCurrencyRateForCurrencyCode(String currency) {
         System.out.println("getting rate for the currency: " + currency);
-        //just a test, in real situation, we might be getting the currency rate
+        // just a test, in real situation, we might be getting the currency rate
         // for the provided currency from a cache
         return new BigDecimal(Math.round(Math.random() * 100));
     }

@@ -12,7 +12,7 @@ public class LocalClassDemo {
     // low and high are effectively final
     public static IntSequence randomInts(int low, int high) {
         // local and inner classes have direct access to local and instance variables
-        // thus saving on boilerplate code present in e.g., StandaloneRandomIntSequence
+        // thus saving on boilerplate code present in, e.g., StandaloneRandomIntSequence
         // (the boilerplate code in the constructor copies low, high and generator
         // into instance variables of the class)
         class RandomSequence implements IntSequence {
