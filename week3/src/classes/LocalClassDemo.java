@@ -30,6 +30,8 @@ public class LocalClassDemo {
     }
 
     public static IntSequence randomIntsAnonymous(int low, int high) {
+        // anonymous class simplifies this further as it does not have a name
+        // but still can access the local and instance variables
         return new IntSequence() {
             @Override
             public int next() {
@@ -44,7 +46,7 @@ public class LocalClassDemo {
     }
 
     public static void main(String[] args) {
-        IntSequence dieTosses = randomInts(1, 6);
+        IntSequence dieTosses = randomIntsAnonymous(1, 6);
         for (int i = 0; i < 10; i++)
             System.out.println(dieTosses.next());
     }

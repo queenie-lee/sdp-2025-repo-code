@@ -29,7 +29,7 @@ public class FunctionExample {
         // The list of employees is passed to method convertEmpListToNamesList() along with the Function object funcEmpToString;
         List<String> empNameList = convertEmpListToNamesList(employeeList, funcEmpToString);
 
-        empNameList.forEach(System.out::println);
+        empNameList.forEach(s -> System.out.println(s));
     }
 
     public static void printEmployeeFirstNames(List<Employee> employeeList) {
@@ -57,7 +57,7 @@ public class FunctionExample {
                 employeeList,
                 firstNameFunction.compose(funcEmpToString));
 
-        empFirstNameList.forEach(System.out::println);
+        empFirstNameList.forEach(s -> System.out.println(s));
     }
 
     public static void printEmployeeInitials(List<Employee> employeeList) {
@@ -79,7 +79,7 @@ public class FunctionExample {
                 employeeList,
                 funcEmpToString.andThen(initialFunction));
 
-        empNameListInitials.forEach(System.out::println);
+        empNameListInitials.forEach(s -> System.out.println(s));
     }
 
     /*

@@ -68,8 +68,14 @@ public class MethodReferencesExample {
         Function<MyClass, String> function4 = o1::method;
         caller2(o1::method, o2);
         // is equivalent to
-        Function<MyClass, String> function5 = a2 -> o1.methodThis(a2);
-        caller2(a2 -> o1.methodThis(a2), o2);
+        Function<MyClass, String> function5 = a2 -> o1.method(a2);
+        caller2(a2 -> o1.method(a2), o2);
+        // but the following calls the subclass method:
+        Function<MyClass, String> function5b = a1 -> o2.method(a1);
+        caller2(a1 -> o2.method(a1), o1);
+        // and so does the following:
+        Function<MyClass, String> function4b = o2::method;
+        caller2(o2::method, o1);
         // the same applies to Method::methodThis,
         // but not to MyClass::staticMethod
 

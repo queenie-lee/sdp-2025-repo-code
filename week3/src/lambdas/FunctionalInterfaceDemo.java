@@ -43,7 +43,7 @@ public class FunctionalInterfaceDemo {
     public static void main(String[] args) {
         // named class (lambdas.MyClass)
         MyInterface my = new MyInterfaceImpl();
-        my.myMethod();  // In lambdas.MyClass
+        my.myMethod();  // In lambdas.MyInterfaceImpl
 
         int i = 2; // effectively final
 
@@ -62,7 +62,7 @@ public class FunctionalInterfaceDemo {
                 nonFinalVariable = 101;
             }
         };
-        my.myMethod();  // In lambdas.Example$1
+        my.myMethod();  // In lambdas.FunctionalInterfaceDemo$1
 
         // lambdas: shorter version with the same functionality
         my = () -> {
