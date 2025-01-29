@@ -5,6 +5,25 @@ import java.util.Comparator;
 
 import static java.util.Comparator.*;
 
+record Person(String firstName, String middleName, String lastName) {
+
+    public Person(String firstName, String lastName) {
+        this(firstName, null, lastName);
+    }
+
+    public String name() {
+        return middleName == null
+                ? firstName + " " + lastName
+                : firstName + " " + middleName + " " + lastName;
+    }
+
+    @Override
+    public String toString() {
+        return name();
+    }
+}
+
+
 public class ComparatorDemo {
     public static void main(String[] args) {
         Person[] people = {
@@ -54,25 +73,25 @@ public class ComparatorDemo {
         };
 
         Arrays.sort(people,
-                Comparator.comparing(Person::getName));
+                Comparator.comparing(Person::name));
         System.out.println("by name: " + Arrays.toString(people));
 
         Arrays.sort(people,
-                Comparator.comparing(Person::getLastName)
-                    .thenComparing(Person::getFirstName));
+                Comparator.comparing(Person::lastName)
+                    .thenComparing(Person::firstName));
         System.out.println("by last name, then first name: " + Arrays.toString(people));
 
         Arrays.sort(people,
-                Comparator.comparing(Person::getName,
+                Comparator.comparing(Person::name,
                         comparingInt(String::length)));
         System.out.println("by the length of the name: " + Arrays.toString(people));
 
         Arrays.sort(people,
-                comparing(Person::getMiddleName, nullsFirst(naturalOrder())));
+                comparing(Person::middleName, nullsFirst(naturalOrder())));
         System.out.println("by the middle name, with nulls first: " + Arrays.toString(people));
 
         Arrays.sort(people,
-                comparing(Person::getName, reverseOrder()));
+                comparing(Person::name, reverseOrder()));
         System.out.println("by name in reverse order: " + Arrays.toString(people));
     }
 }

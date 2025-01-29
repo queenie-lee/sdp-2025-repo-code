@@ -1,10 +1,27 @@
-package functions;
+package demos;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public class FunctionExample {
+record Employee(String name, int age) {
+    public static List<Employee> load() {
+        return List.of(
+                new Employee("Tom Jones", 45),
+                new Employee("Harry Major", 25),
+                new Employee("Ethan Hardy", 65),
+                new Employee("Nancy Smith", 15),
+                new Employee("Deborah Sprightly", 29));
+    }
+}
+
+
+/*
+       Example of "Higher-order functions" (HoFs) ---
+                     functions/methods that takes another function(s)/method(s) as arguments.
+ */
+
+public class HigherOrderFunctionsExample {
 
     public static void main(String... args) {
         List<Employee> employeeList = Employee.load();
@@ -23,7 +40,7 @@ public class FunctionExample {
         // The lambda expression takes as input an Employee object and returns their name,
         // which is a String value, as output.
         Function<Employee, String> funcEmpToString = (Employee e) -> {
-            return e.getName();
+            return e.name();
         };
 
         // The list of employees is passed to method convertEmpListToNamesList() along with the Function object funcEmpToString;
@@ -36,7 +53,7 @@ public class FunctionExample {
 
         // Function instance funcEmpToString maps an Employee object to a String value of their name.
         // A more concise lambda expression is used here
-        Function<Employee, String> funcEmpToString = e -> e.getName();
+        Function<Employee, String> funcEmpToString = e -> e.name();
 
         // Function instance firstNameFunction maps a name to the first name
         // using the substring method of String.
@@ -63,7 +80,7 @@ public class FunctionExample {
     public static void printEmployeeInitials(List<Employee> employeeList) {
         // Function instance funcEmpToString maps an Employee object to a String of their name.
         // Use a method reference here (even more concise)
-        Function<Employee, String> funcEmpToString = Employee::getName;
+        Function<Employee, String> funcEmpToString = Employee::name;
 
         // Function instance initialFunction maps a String to its initial, or first letter.
         Function<String, String> initialFunction = s -> s.substring(0, 1);
@@ -83,9 +100,6 @@ public class FunctionExample {
     }
 
     /*
-       Example of a "Higher-order function" (HoF) ---
-                     a function (method) that takes another function (method) as an argument.
-
        The method convertEmpListToNamesList() iterates over all the employees in the employee list,
        applies the function funcEmpToString to each of the Employee objects,
        getting back the employee names in String format, which it puts in an Employee name list and
