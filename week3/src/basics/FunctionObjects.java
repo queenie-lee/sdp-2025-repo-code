@@ -4,7 +4,6 @@ interface IntBinaryFunction {
     int apply(int i, int j);
 }
 
-
 // Option 1: standalone class
 class IntMinimumStandalone implements IntBinaryFunction {
     @Override public int apply(int i, int j) {
@@ -51,15 +50,20 @@ public class FunctionObjects {
         System.out.println(r6); // good, but has no-one else ever written something like this?
 
         // Step 7: method reference
-        int r7 = arrayFunctionApplication(a1, Math::min);
+        int r7 = arrayFunctionApplication(a1, Integer::min);
         System.out.println(r7);
 
         // Step 8: method reference to another function object
-        int r8 = arrayFunctionApplication(a1, Math::max);
+        int r8 = arrayFunctionApplication(a1, Integer::max);
         System.out.println(r8);
+
+        // Step 9: method reference to yet another function object
+        int r9 = arrayFunctionApplication(a1, Integer::sum);
+        System.out.println(r9);
     }
 
     // Step 2: nested static class (more local name)
+    // private nested classes are not accessible from the outside
     private static class IntMinimumStatic implements IntBinaryFunction {
         @Override public int apply(int i, int j) {
                 return i < j ? i : j;
