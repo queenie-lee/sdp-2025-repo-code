@@ -34,6 +34,9 @@
 - *Step 2: Break large interfaces into smaller ones*
 
 ![](SOLID-I1.png)
+* CORRECTION (1:55) : users are going back to the same class
+* Diagram: 3 clients (classes) using the same class containing different methods. Methods provide services to the clients 
+(users of the class). Each user sees different parts (views) of the same object.
 
 - When a piece of functionality is important in many places, its interface "can offer too many services to too many
   clients".
@@ -42,6 +45,7 @@
 - Rather than implementing one big interface, split the interface into multiple smaller ones, and implement all of them.
 
 ![](SOLID-I2.png)
+* Solution: Create separate Interfaces for each service. In the future, can split the object or expose object to different users.
 
 # O = Open-Closed Principle
 
@@ -64,6 +68,7 @@
 ![](SOLID-O.png)
 
 # L = Liskov Substitution Principle
+Time: 2:34:30
 
 "Subclasses should be substitutable for their base classes."
 
@@ -76,11 +81,23 @@
 - Make sure your subclasses / implementations (SmartPhone) satisfy the contracts of the parent class / interface (Phone)
   .
 
+Think of assignments --> context is on left, expression is on right
+- Items on right must be more specific than on left
+- Applies to passing parameters to methods
+- Nothing should be broken if you use subclasses
+
 # D = Dependency Inversion
 
 "Depend upon Abstractions. Do not depend upon concretions."
 
 ![](SOLID-D.png)
+Functional decompositions: works in imperative programming
+
+!! Does not work for OOP (Object-Oriented Programming) !!
+
+For lamp example: 
+- Depends on an Interface that has two methods: switch on, switch off
+- Lamp depends on Interface 
 
 *Step 5: Make the parent classes of the hierarchy as abstract as possible, or into interfaces*
 

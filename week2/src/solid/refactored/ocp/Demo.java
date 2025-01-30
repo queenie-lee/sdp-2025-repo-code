@@ -15,9 +15,11 @@ class Square implements Shape {
 }
 
 public class Demo {
-    public void draw(Shape[] shapes) {
+    public void draw(Shape[] shapes) { // closed for modification. Does not need to be rewritten if we want to extend for functionality
         for (Shape shape : shapes) {
-            shape.draw();
+            // Type of object is determined at runtime --> determines what version of the method to call
+            // Polymorphic call --> allows us to provide different ways of implementing this procedure.
+            shape.draw(); // dyanamic polymorphism, allows us to provide different ways to draw
         }
     }
 }
