@@ -58,10 +58,10 @@ public class MethodReferencesExample {
         caller(MyClass::staticMethod, o1, o2);
 
         MySubClass o3 = new MySubClass("3");
-        caller(MyClass::method, o1, o3);
+        caller(MyClass::method, o3, o1);
         // is equivalent to (and thus, which implementation of method
         // is called depends on the type of a1 (MyClass or MySubClass) at run-time)
-        caller((a1, a2) -> a1.method(a2), o1, o3);
+        caller((a1, a2) -> a1.method(a2), o3, o1);
         // the same applies to Method::methodThis,
         // but not to MyClass::staticMethod (as one cannot override static methods)
 
