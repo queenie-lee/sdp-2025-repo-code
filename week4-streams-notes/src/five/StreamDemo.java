@@ -23,7 +23,7 @@ public class StreamDemo {
                 .map(a -> new NamePhone(a.name(), a.phone()));
         System.out.println("List of names and phone numbers: ");
         nameAndPhone.forEach(a ->
-            System.out.println(a.name() + " " + a)
+            System.out.println(a.name() + " " + a.phone())
         );
     }
 }
