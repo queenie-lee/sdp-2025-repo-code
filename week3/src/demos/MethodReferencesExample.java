@@ -50,6 +50,7 @@ public class MethodReferencesExample {
         System.out.println(MyClass.staticMethod(o1, o2));
 
         // each of the three methods references matches BiFunction<MyClass, MyClass, String>
+        // parameter type 1, parameter type 2, return type
         BiFunction<MyClass, MyClass, String> function1 = MyClass::method;
         caller(MyClass::method, o1, o2);
         BiFunction<MyClass, MyClass, String> function2 = MyClass::methodThis;
@@ -65,6 +66,7 @@ public class MethodReferencesExample {
         // the same applies to Method::methodThis,
         // but not to MyClass::staticMethod (as one cannot override static methods)
 
+        // o1 is fixed - no longer BiFunction
         Function<MyClass, String> function4 = o1::method;
         caller2(o1::method, o2);
         // is equivalent to
