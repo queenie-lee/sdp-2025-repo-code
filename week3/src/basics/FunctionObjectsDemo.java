@@ -25,7 +25,7 @@ public class FunctionObjectsDemo {
     }
 
     // Step 2: nested static class, with a more local name (since Java 1.1) -- recording: 1:21:29
-    // private nested classes are not accessible from the outside
+    // private nested classes are not accessible from the outside - not accessible by everyone
     private static class IntMinimumStatic implements IntBinaryFunction {
         @Override public int apply(int i, int j) {
             return i < j ? i : j;
@@ -36,6 +36,7 @@ public class FunctionObjectsDemo {
         int[] a1 = { 5, 2, 4, 1, 3, 8 };
 
         // Version 1: standalone class
+        // has limited functionality, exposed and could be misused
         int r1 = arrayFunctionApplication(a1, new IntMinimumStandalone());
         System.out.println(r1); // good, but the class name (IntMinimumStandalone) is global (is it needed?)
 
@@ -65,19 +66,26 @@ public class FunctionObjectsDemo {
         // Step 5: typed lambda with full body (since Java 8)
         // TODO: 1:27:55-- Review
         int r5 = arrayFunctionApplication(a1, (int i, int j) -> {
-            return i < j ? i : j; // body of the method remains the same as in Step 4
+            return i < j ? i : j; // argument + body of the method remains the same as in Step 4
         });
         System.out.println(r5); // good, but can Java not see that it's ints?
 
         // Step 6: short lambda with type inferencing (since Java 8)
+        // types, curly brackets and return are eliminated -> compiler already knows these details
+        // concise notation
         /**
-         * If you run into any issues here, go back three steps and break it down to identify the problem.
+         * If you run into any issues here, go back to step four and break it down to identify the problem.
          * */
         int r6 = arrayFunctionApplication(a1, (i, j) -> i < j ? i : j);
         System.out.println(r6); // good, but has no-one else ever written something like this?
 
-        // Step 7: method reference (Java 8)
-        // Reusing something that already exists in Math.min
+        // Step 7: method reference (Java 8) --> another way to writing lambda expression --> another way of writing anonymous class
+        /** Reusing something that already exists in Math.min
+        - takes class min from class Integer and packages it into an object. The object is used as a function
+        - method min has same signature as the abstract method we have in the interface IntBinaryFunction
+        - No need to decipher, written in plain english
+        - arrayFunctionApplication becomes a general algorithm that can be applied in several cases
+         */
         int r7 = arrayFunctionApplication(a1, Integer::min);
         System.out.println(r7);
 
