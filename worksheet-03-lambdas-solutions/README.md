@@ -72,13 +72,17 @@ All the exercises should be answered using Java lambda expressions unless specif
 
 6. (**) Rewrite `allMatches` so it works on any `List` and associated `Predicate`, not just on `String`s. Verify that the examples from the previous question still work. In addition, the following code should also work:
     ```java
-    var savingsAccountsList = new ArrayList<SavingsAccount>();
-    var bankAccountsList = new ArrayList<BankAccount>();
+        List<SavingsAccount> savingsAccountsList = List.of(new SavingsAccount(22), new SavingsAccount(42));
+        savingsAccountsList.get(0).deposit(50000);
+        List<BankAccount> bankAccountsList = List.of(new BankAccount(33), new SavingsAccount(57));
+        bankAccountsList.get(0).deposit(20000);
 
-    Predicate<BankAccount> predicate = b -> b.getBalance() > 0;
+        Predicate<BankAccount> predicate = b -> b.getBalance() > 0;
 
-    var savingsAccountsMatchesList = allMatch(savingsAccountsList, predicate);
-    var bankAccountsMatchesList = allMatch(bankAccountsList, predicate);
+        List<SavingsAccount> savingsAccountsMatchesList = StringUtils.allMatches(savingsAccountsList, predicate);
+        System.out.println(savingsAccountsMatchesList);
+        List<BankAccount> bankAccountsMatchesList = StringUtils.allMatches(bankAccountsList, predicate);
+        System.out.println(bankAccountsMatchesList);
     ```
 
 7. (*) Create a `static` method called `transformedList`. It should take a `List` of `String`s and a `Function<String,String>` and return a new `List` that contains the results of applying the function to each element of the original list. For example:
@@ -90,14 +94,16 @@ All the exercises should be answered using Java lambda expressions unless specif
 
 8. (**) Rewrite `transformedList` so it works with generic types. Verify that the examples from the previous question still work. In addition, the following code should also work:
     ```java
-    var savingsAccountsList = new ArrayList<SavingsAccount>();
-    var bankAccountsList = new ArrayList<BankAccount>();
+        List<SavingsAccount> savingsAccountsList = List.of(new SavingsAccount(22), new SavingsAccount(42));
+        List<BankAccount> bankAccountsList = List.of(new BankAccount(33), new SavingsAccount(57));
 
-    Function<BankAccount, String> mapper = 
-             b -> String.format("%010d", b.getAccountNumber());
+        Function<BankAccount, String> mapper =
+                b -> String.format("%010d", b.getAccountNumber());
 
-    var savingsAccountsNumbersList = transformedList(savingsAccountsList, mapper);
-    var bankAccountsNumbersList = transformedList(bankAccountsList, mapper);
+        List<String> savingsAccountsNumbersList = StringUtils.transformedList(savingsAccountsList, mapper);
+        System.out.println(savingsAccountsNumbersList);
+        List<String> bankAccountsNumbersList = StringUtils.transformedList(bankAccountsList, mapper);
+        System.out.println(bankAccountsNumbersList);
     ```
 
 ------  
