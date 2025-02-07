@@ -25,5 +25,20 @@ public class HigherOrderDemo {
         Arrays.sort(words,
                 reverse(String::compareToIgnoreCase));
         System.out.println(Arrays.toString(words));
+
+        Arrays.sort(words,
+                // the type cast is needed to specify the interface
+                // matching the method reference
+                ((Comparator<String>) String::compareToIgnoreCase)
+                        .reversed());
+
+        // a longer version that is simplified to the above by IntelliJ
+        Arrays.sort(words,
+                new Comparator<String>() {
+                    @Override
+                    public int compare(String o1, String o2) {
+                        return o1.compareToIgnoreCase(o2);
+                    }
+                }.reversed());
     }
 }

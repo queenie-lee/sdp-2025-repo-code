@@ -130,6 +130,8 @@ public class StreamDemo {
         System.out.println(r);
 
         // different examples of reduce and collect
+        // note mapToInt instead of map,
+        // which would create Stream<Integer> (very inefficient)
         OptionalInt c1 = list.stream()
                 .mapToInt(Dish::calories)
                 .reduce(Integer::max);
@@ -139,6 +141,10 @@ public class StreamDemo {
                 .reduce(0, Integer::sum);
 
         String s = list.stream()
+                .map(Dish::name)
+                .reduce("", String::concat); // very inefficient
+
+        String s2 = list.stream()
                 .map(Dish::name)
                 .collect(Collectors.joining());
 
