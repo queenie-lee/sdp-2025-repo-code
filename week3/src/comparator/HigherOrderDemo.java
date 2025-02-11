@@ -2,6 +2,7 @@ package comparator;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.function.BiFunction;
 
 public class HigherOrderDemo {
     public static Comparator<String> compareInDirection(int direction) {
@@ -40,5 +41,19 @@ public class HigherOrderDemo {
                         return o1.compareToIgnoreCase(o2);
                     }
                 }.reversed());
+
+        // a method reference (or a lambda expression) can match different functional interfaces
+        C c1 = String::compareToIgnoreCase;
+        Comparator<String> c2 = String::compareToIgnoreCase;
+        BiFunction<String, String, Integer> c3 = String::compareToIgnoreCase;
+        // but which default methods are available depends on the functional interface type
+        c2.reversed(); // is available in Comparator<String>
+        c3.andThen(i -> i + 1); // is available in BiFunction<String, String, Integer>
+        // but c1.reversed(); is not available
+    }
+
+    @FunctionalInterface
+    interface C {
+        int compare(String o1, String o2);
     }
 }

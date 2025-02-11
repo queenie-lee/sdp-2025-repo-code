@@ -41,23 +41,21 @@ public final class MessageSupportFactory {
             renderer = (MessageRenderer) newInstanceOf(rendererClass);
 
             String providerClass = props.getProperty("provider.class");
-            provider = (MessageProvider) newInstanceOf(providerClass);
+            provider = newTypeSafeInstanceOf(providerClass, MessageProvider.class);
         }
         catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private Object newInstanceOf(String className) throws ClassNotFoundException,
-            NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private Object newInstanceOf(String className) throws ReflectiveOperationException {
 
         Class<?> classObject = Class.forName(className);
         Constructor<?> constructor = classObject.getDeclaredConstructor();
         return constructor.newInstance();
     }
 
-    private <T> T newTypeSafeInstanceOf(String className, Class<T> klass) throws ClassNotFoundException,
-            NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    private <T> T newTypeSafeInstanceOf(String className, Class<T> klass) throws ReflectiveOperationException {
 
         // just an example of using something different from ? inside <> after Class/Constructor
         Class<? extends T> classObject = Class.forName(className).asSubclass(klass);
