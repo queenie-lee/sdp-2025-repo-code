@@ -8,3 +8,4 @@ provider.(class)=helloworld.HelloWorldMessageProvider
 #  of the renderer bean
 renderer.messageProvider(ref)=provider
 
+# job of the DI framework to figure out how objects need to be created and in which specific order

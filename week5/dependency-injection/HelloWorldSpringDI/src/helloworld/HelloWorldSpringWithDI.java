@@ -19,7 +19,7 @@ public final class HelloWorldSpringWithDI {
         // on the fly: see
         //     renderer.messageProvider(ref)=provider
         // in the beans file in the resources folder. So, the dependency is "injected".
-        mr.render();
+        mr.render(); // responsibility of Dependency Injection to figure this out.
     }
 
     private static BeanFactory getBeanFactory() throws IOException {

@@ -9,5 +9,6 @@
 		http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- scan component, it also assumes annotation-config as well-->
+    <!-- loooks at helloworld package -->
     <context:component-scan base-package="helloworld"/>
 </beans>

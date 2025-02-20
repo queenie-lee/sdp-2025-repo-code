@@ -19,7 +19,7 @@ public class HelloWorldSpring {
         MessageRenderer mr = (MessageRenderer) factory.getBean("renderer");
         MessageProvider mp = (MessageProvider) factory.getBean("provider");
         mr.setMessageProvider(mp);
-        mr.render();
+        mr.render(); // render is dependent on setMessageProvider
     }
 
     private static BeanFactory getBeanFactory() throws IOException {

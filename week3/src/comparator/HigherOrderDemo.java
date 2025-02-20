@@ -30,7 +30,7 @@ public class HigherOrderDemo {
         Arrays.sort(words,
                 // the type cast is needed to specify the interface
                 // matching the method reference
-                ((Comparator<String>) String::compareToIgnoreCase)
+                ((Comparator<String>) String::compareToIgnoreCase) // typecasting allows you to use the .reversed() method.
                         .reversed());
 
         // a longer version that is simplified to the above by IntelliJ

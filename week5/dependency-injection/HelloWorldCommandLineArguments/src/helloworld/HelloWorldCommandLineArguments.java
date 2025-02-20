@@ -1,4 +1,8 @@
 package helloworld;
+/**
+ * Problems:
+ * 1. Still tied to console
+ * */
 
 public class HelloWorldCommandLineArguments {
 

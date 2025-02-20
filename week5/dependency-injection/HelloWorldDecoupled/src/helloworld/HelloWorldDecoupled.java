@@ -1,5 +1,7 @@
 package helloworld;
 
+// Issue: Dependency inversion. One class depends on the other. If we change one, we will need to recompile the other.
+
 public class HelloWorldDecoupled {
     public static void main(String... args) {
         // With var, the compiler *infers* the type of the variables
