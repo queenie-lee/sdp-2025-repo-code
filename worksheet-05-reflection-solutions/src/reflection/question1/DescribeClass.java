@@ -48,7 +48,7 @@ public class DescribeClass {
          * @param strings   vararg of Strings to be joined possibly including null values
          * @return string of delimiter separated String
          */
-        static String joinRemovingNullEntries(String delimiter, String... strings) {
+        private static String joinRemovingNullEntries(String delimiter, String... strings) {
             return Arrays.stream(strings)
                 .filter(Objects::nonNull)
                 .collect(Collectors.joining(delimiter));
@@ -61,7 +61,7 @@ public class DescribeClass {
          * @param className string of fully qualified class name
          * @return simplified class name.
          */
-        static String simplifyClass(String className) {
+        private static String simplifyClass(String className) {
             Pattern p = Pattern.compile("([$_A-Za-z0-9]+?\\.)+([$_A-Za-z0-9]+.*)");
             for (Matcher m = p.matcher(className); m.find(); m = p.matcher(className)) {
                 className = m.replaceAll("$2");
@@ -83,30 +83,30 @@ public class DescribeClass {
                 .collect(Collectors.joining(delimiter));
         }
 
-        static String simplifyTypeClass(Type t) {
+        private static String simplifyTypeClass(Type t) {
             return simplifyClass(t.getTypeName());
         }
 
-        String getClassType() {
+        private String getClassType() {
             if (c.isInterface()) {
                 return null;
             }
             return "class";
         }
 
-        String getExtension() {
+        private String getExtension() {
             if (c.getSuperclass() == null) return null;
 
             return "extends " + c.getSuperclass().getSimpleName();
         }
 
-        String getSimpleModifiers(int modifiers) {
+        private String getSimpleModifiers(int modifiers) {
             if (modifiers == 0) return null;
 
             return Modifier.toString(modifiers);
         }
 
-        String getInterfaces() {
+        private String getInterfaces() {
             if (c.getInterfaces().length == 0) return null;
 
             return "implements " + Stream.of(c.getInterfaces())
@@ -114,7 +114,7 @@ public class DescribeClass {
                     .collect(Collectors.joining(", "));
         }
 
-        String getClassDeclaration() {
+        private String getClassDeclaration() {
             return joinRemovingNullEntries(" ",
                     getSimpleModifiers(c.getModifiers()),
                     getClassType(),
@@ -123,7 +123,7 @@ public class DescribeClass {
                     getInterfaces());
         }
 
-        String getFieldInformation() {
+        private String getFieldInformation() {
             if (c.getDeclaredFields().length == 0) return null;
 
             List<String> output = new ArrayList<>(Arrays.asList(INDENT + "// Field information", ""));
@@ -137,7 +137,7 @@ public class DescribeClass {
             return String.join("\n", output);
         }
 
-        String getConstructorsInformation() {
+        private String getConstructorsInformation() {
             if (c.getConstructors().length == 0) return null;
 
             List<String> output = new ArrayList<>(Arrays.asList(INDENT + "// Constructor information", ""));
@@ -151,7 +151,7 @@ public class DescribeClass {
             return String.join("\n", output);
         }
 
-        String getMethodsInformation() {
+        private String getMethodsInformation() {
             if (c.getDeclaredMethods().length == 0) return null;
 
             List<String> output = new ArrayList<>(Arrays.asList(INDENT + "// Declared method information", ""));
