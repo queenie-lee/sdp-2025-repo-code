@@ -7,25 +7,25 @@ import java.util.stream.Stream;
 public class ChainOfResponsibilityLambda {
 
     public static Optional<String> parseText(File file) {
-        return Optional.ofNullable(file)
+        return Optional.of(file)
             .filter(f -> f.getType() == File.Type.TEXT)
             .map(f -> "Text file: " + f.getContent());
     }
 
     public static Optional<String> parsePresentation(File file) {
-        return Optional.ofNullable(file)
+        return Optional.of(file)
             .filter(f -> f.getType() == File.Type.PRESENTATION)
             .map(f -> "Presentation file: " + f.getContent());
     }
 
     public static Optional<String> parseAudio(File file) {
-        return Optional.ofNullable(file)
+        return Optional.of(file)
             .filter(f -> f.getType() == File.Type.AUDIO)
             .map(f -> "Audio file: " + f.getContent());
     }
 
     public static Optional<String> parseVideo(File file) {
-        return Optional.ofNullable(file)
+        return Optional.of(file)
             .filter(f -> f.getType() == File.Type.VIDEO)
             .map(f -> "Video file: " + f.getContent());
     }

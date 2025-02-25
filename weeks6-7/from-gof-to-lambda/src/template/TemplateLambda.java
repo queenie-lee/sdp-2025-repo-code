@@ -4,11 +4,8 @@ import java.util.function.Consumer;
 
 public class TemplateLambda {
     public static void withResource(Consumer<Resource> consumer) {
-        Resource resource = new Resource();
-        try {
+        try (Resource resource = new Resource()) {
             consumer.accept(resource);
-        } finally {
-            resource.dispose();
         }
     }
 

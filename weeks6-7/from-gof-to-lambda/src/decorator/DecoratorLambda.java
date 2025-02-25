@@ -1,36 +1,42 @@
 package decorator;
 
 import java.util.function.DoubleUnaryOperator;
+import java.util.stream.Collector;
 import java.util.stream.Stream;
 
 public class DecoratorLambda {
 
     public static void main(String... args) {
-        new DefaultSalaryCalculator()
-            .andThen(Taxes::generalTax)
-            .andThen(Taxes::regionalTax)
-            .andThen(Taxes::healthInsurance)
-            .applyAsDouble(80000.00);
+        DoubleUnaryOperator defaultSalaryCalculator = g -> g / 12;
+
+        DoubleUnaryOperator calculator = defaultSalaryCalculator
+                        .andThen(Taxes::generalTax)
+                        .andThen(Taxes::regionalTax)
+                        .andThen(Taxes::healthInsurance);
+
+        System.out.println(calculator.applyAsDouble(80000.00));
 
         System.out.println(
                 calculateSalary(80000.00,
-                        new DefaultSalaryCalculator(),
+                        defaultSalaryCalculator,
                         Taxes::generalTax,
                         Taxes::regionalTax,
                         Taxes::healthInsurance));
     }
 
     public static double calculateSalary(double annualGross, DoubleUnaryOperator... taxes) {
-        return Stream.of(taxes)
+        DoubleUnaryOperator calculator = Stream.of(taxes)
                 .reduce(DoubleUnaryOperator.identity(),
-                        DoubleUnaryOperator::andThen)
-                .applyAsDouble(annualGross);
-    }
+                        DoubleUnaryOperator::andThen);
 
-    public static class DefaultSalaryCalculator implements DoubleUnaryOperator {
-        @Override
-        public double applyAsDouble(double grossAnnual) {
-            return grossAnnual / 12;
-        }
+        return calculator.applyAsDouble(annualGross);
+
+/*
+        return Stream.of(taxes)
+                .collect(Collector.of(
+                        () -> annualGross,
+                        (v, f) -> f.applyAsDouble(v),
+                        (v1, v2) -> 0.0));
+ */
     }
 }

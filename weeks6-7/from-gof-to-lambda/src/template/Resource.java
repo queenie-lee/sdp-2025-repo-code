@@ -2,16 +2,9 @@ package template;
 
 import java.util.Random;
 
-public class Resource {
+public class Resource implements AutoCloseable {
     public Resource() {
         System.out.println("Resource created");
-    }
-
-    public static void main(String... args) {
-        Resource resource = new Resource();
-        resource.useResource();
-        resource.employResource();
-        resource.dispose();
     }
 
     public void useResource() {
@@ -24,7 +17,8 @@ public class Resource {
         System.out.println("Resource employed");
     }
 
-    public void dispose() {
+    @Override
+    public void close() {
         System.out.println("Resource disposed");
     }
 

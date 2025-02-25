@@ -1,3 +1,5 @@
+package creational.prototype;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +12,8 @@ public class Prototype implements Cloneable {
     // In the declaration below we
     //    - make the method more visible (public)
     //    - remove some of the checked exceptions from the throws clause (CloneNotSupportedException)
-    //    - narrow the return type (from Object to Prototype)
-    // All of these language features support the Prototype pattern
+    //    - narrow the return type (from Object to creational.prototype.Prototype)
+    // All of these language features support the creational.prototype.Prototype pattern
 
     @Override
     public Prototype clone() {
