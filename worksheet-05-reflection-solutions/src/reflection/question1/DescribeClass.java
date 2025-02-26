@@ -9,7 +9,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+/* There are a lot of helper methods - all straightforward
+    All start with if statements, returning null (simplifies the class [do not need to use Optionals], but breaks design principles)
+    -> gets passed into joinRemovingNullEntries method, which removes all nulls
 
+    Constructor is private
+
+    Exceptions:
+    Constructor can throw an exception
+
+ StreamAPI is used as much as possible */
 public class DescribeClass {
 
     public static void main(String[] args) {
@@ -34,9 +43,10 @@ public class DescribeClass {
     private static class InterfaceConstructor {
 
         private final static String INDENT = "\t";
-        private final Class<?> c;
+        private final Class<?> c; // c might end up being null if we tried to use a try catch block.
 
-        public InterfaceConstructor(String className) throws ClassNotFoundException {
+        public InterfaceConstructor(String className) throws ClassNotFoundException { // exception is thrown instead of caught here
+            // best option: let the exception go through instead of catching it, that way there isn't a partially constructed state
             this.c = Class.forName(className);
         }
 
