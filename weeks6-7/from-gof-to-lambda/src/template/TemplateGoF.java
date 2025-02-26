@@ -17,7 +17,7 @@ public class TemplateGoF {
         protected abstract void doSomethingWithResource();
 
         private void closeResource() {
-            resource.dispose();
+            resource.close();
             resource = null;
         }
 

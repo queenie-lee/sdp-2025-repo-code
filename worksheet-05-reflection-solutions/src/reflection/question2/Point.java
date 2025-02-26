@@ -1,6 +1,6 @@
 package reflection.question2;
 
-class Point {
+public class Point {
     private final double x, y;
 
     public Point(int x, int y) {
@@ -19,6 +19,11 @@ class Point {
 
         this.x = Integer.parseInt(split[0].trim());
         this.y = Integer.parseInt(split[1].trim());
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
     }
     // other methods here
 }

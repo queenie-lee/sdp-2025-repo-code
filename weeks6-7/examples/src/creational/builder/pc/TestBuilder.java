@@ -4,7 +4,7 @@ public class TestBuilder {
     public static void main(String[] args) {
         //Using builder to get the object in a single line of code and
         //without any inconsistent behavioural.state or arguments management issues
-        Computer.ComputerBuilder comp = new Computer.ComputerBuilder("500 GB", "2 GB")
+        Computer.Builder builder = new Computer.Builder("500 GB", "2 GB")
         // some statements in between
 
         // the advantage of the builder pattern is that there is no inconsistent behavioural.state of the
@@ -14,7 +14,7 @@ public class TestBuilder {
         // more statements in between
             .setGraphicsCardEnabled(true);
 
-        Computer computer = comp.build();
+        Computer computer = builder.build();
         System.out.println(computer);
     }
 }

@@ -4,11 +4,11 @@ import java.util.Stack;
 
 public class InterpreterGoF {
 
-    public static boolean isOperator(String s) {
+    private static boolean isOperator(String s) {
         return s.equals("+") || s.equals("-") || s.equals("*");
     }
 
-    public static Expression getOperator(String s, Expression left, Expression right) {
+    private static Expression getOperator(String s, Expression left, Expression right) {
         return switch (s) {
             case "+" -> new Add(left, right);
             case "-" -> new Subtract(left, right);

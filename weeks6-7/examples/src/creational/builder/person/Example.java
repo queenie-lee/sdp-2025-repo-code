@@ -1,8 +1,9 @@
 package creational.builder.person;
 
+
 public class Example {
     public static void main(String[] args) {
-        Person p = Person.PersonBuilder
+        Person p = Person.Builder
                 .aPerson()
                 .withFirst("Fred")
                 .withSecond("Bloggs")
@@ -12,13 +13,23 @@ public class Example {
     }
 }
 
+// builder for mutable objects
 class Person {
     private String first;
     private String second;
     private int age;
     private String address;
 
+    // default constructor - private (accessible only from Builder)
     private Person() {
+    }
+
+    // copy constructor
+    private Person(Person person) {
+        this.first = person.first;
+        this.second = person.second;
+        this.age = person.age;
+        this.address = person.address;
     }
 
     public String getFirst() {
@@ -63,46 +74,39 @@ class Person {
             '}';
     }
 
-    public static final class PersonBuilder {
-        private String first;
-        private String second;
-        private int age;
-        private String address;
+    public static final class Builder {
+        private final Person person;
 
-        private PersonBuilder() {
+        private Builder() {
+            person = new Person();
         }
 
-        public static PersonBuilder aPerson() {
-            return new PersonBuilder();
+        public static Builder aPerson() {
+            return new Builder();
         }
 
-        public PersonBuilder withFirst(String first) {
-            this.first = first;
+        public Builder withFirst(String first) {
+            person.setFirst(first);
             return this;
         }
 
-        public PersonBuilder withSecond(String second) {
-            this.second = second;
+        public Builder withSecond(String second) {
+            person.setSecond(second);
             return this;
         }
 
-        public PersonBuilder withAge(int age) {
-            this.age = age;
+        public Builder withAge(int age) {
+            person.setAge(age);
             return this;
         }
 
-        public PersonBuilder withAddress(String address) {
-            this.address = address;
+        public Builder withAddress(String address) {
+            person.setAddress(address);
             return this;
         }
 
         public Person build() {
-            Person person = new Person();
-            person.setFirst(first);
-            person.setSecond(second);
-            person.setAge(age);
-            person.setAddress(address);
-            return person;
+            return new Person(person);
         }
     }
 }

@@ -37,10 +37,10 @@ public final class ObserverGoF {
     }
 
     public static class Observer1 {
-        Observer1(final Observable observable) {
+        Observer1(Observable observable) {
             observable.register(this, new Listener() {
                 @Override
-                public void onEvent(final Object event) {
+                public void onEvent(Object event) {
                     System.out.println(this.getClass() + ":" + event);
                 }
             });
@@ -48,12 +48,12 @@ public final class ObserverGoF {
     }
 
     public static final class Observer2 implements Listener {
-        Observer2(final Observable observable) {
+        Observer2(Observable observable) {
             observable.register(this, this);
         }
 
         @Override
-        public void onEvent(final Object event) {
+        public void onEvent(Object event) {
             System.out.println(this.getClass() + ":" + event);
         }
     }

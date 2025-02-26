@@ -3,6 +3,9 @@ package reflection.question2;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.IntStream;
 
 /**
  * An object created from a fully qualified Java class name and list of arguments,
@@ -43,54 +46,83 @@ public class InstantiateClass {
      * @throws ClassNotFoundException className does not refer to a known Class
      */
     public static Object builder(String className, String[] argumentsList) throws ClassNotFoundException {
-        int argumentLen = argumentsList.length;
         for (Constructor<?> candidateConstructor : Class.forName(className).getConstructors()) {
-            if (candidateConstructor.getParameterCount() == argumentLen) {
-                try {
-                    Object[] parameters = new Object[argumentLen];
-                    // get the candidate constructor parameters
-                    Class<?>[] parameterTypes = candidateConstructor.getParameterTypes();
-                    for (int i = 0; i < argumentLen; i++) {
-                        // replace int with Integer, double with Double, etc.,
-                        // but keep String as String, for example
-                        Class<?> parameterObjectType = toWrapper(parameterTypes[i]);
-                        // attempt to type the parameters using any available String constructors
-                        // NoSuchMethodException will be thrown where such constructor is not available
-                        Constructor<?> stringToParameterFunction = parameterObjectType.getConstructor(String.class);
-                        parameters[i] = stringToParameterFunction.newInstance(argumentsList[i]);
-                    }
-                    // return instance using the successful constructor
-                    // and parameters of the correct types
-                    return candidateConstructor.newInstance(parameters);
-                }
-                catch (NoSuchMethodException ignored) {
-                }
-                catch (Exception e) {
-                    e.getStackTrace();
+
+            Class<?>[] parameterTypes = candidateConstructor.getParameterTypes();
+            if (parameterTypes.length == argumentsList.length) {
+
+                Object[] parameters = IntStream.range(0, argumentsList.length)
+                        .mapToObj(i -> getConstructorFromString(parameterTypes[i])
+                                .apply(argumentsList[i]))
+                        .flatMap(Optional::stream) // remove empty optionals
+                        .toArray();
+
+                if (parameters.length == argumentsList.length) { // there were no empty optionals
+                    Optional<Object> opt = construct(candidateConstructor, parameters);
+                    if (opt.isPresent())
+                        return opt.get();
                 }
             }
         }
+
         return null;
     }
 
-    private static final Map<Class<?>, Class<?>> PRIMITIVE_TYPE_WRAPPERS = Map.of(
-            int.class, Integer.class,
-            long.class, Long.class,
-            boolean.class, Boolean.class,
-            byte.class, Byte.class,
-            char.class, Character.class,
-            float.class, Float.class,
-            double.class, Double.class,
-            short.class, Short.class,
-            void.class, Void.class);
+    private static Function<String, Optional<Object>> getConstructorFromString(Class<?> clazz) {
+
+        Function<String, Optional<Object>> special = SPECIAL_CONSTRUCTORS.get(clazz);
+        if (special != null)
+            return special;
+
+        try {
+            Constructor<?> c = clazz.getConstructor(String.class);
+            return s -> construct(c, new Object[] { s });
+        }
+        catch (NoSuchMethodException e) {
+            return s -> Optional.empty();
+        }
+    }
 
     /**
-     * Return the correct Wrapper class if testClass is primitive
-     *
-     * @param testClass class being tested
-     * @return Object class or testClass
+     * Use the provided constructor to construct an object without throwing ReflectiveOperationException
+     * @param constructor the constructor
+     * @param arguments an array containing constructor arguments
+     * @return an optional with a newly created object or empty optional if an exception is thrown
+     * @param <T> the type of objects
      */
-    private static Class<?> toWrapper(Class<?> testClass) {
-        return PRIMITIVE_TYPE_WRAPPERS.getOrDefault(testClass, testClass);
+    private static <T> Optional<T> construct(Constructor<? extends T> constructor, Object[] arguments) {
+        try {
+            return Optional.of(constructor.newInstance(arguments));
+        }
+        catch (ReflectiveOperationException e) {
+            return Optional.empty();
+        }
+    }
+
+    private static final Map<Class<?>, Function<String, Optional<Object>>> SPECIAL_CONSTRUCTORS = Map.of(
+            int.class, optionalOf().compose(Integer::valueOf),
+            long.class, optionalOf().compose(Long::valueOf),
+            short.class, optionalOf().compose(Short::valueOf),
+            byte.class, optionalOf().compose(Byte::valueOf),
+            float.class, optionalOf().compose(Float::valueOf),
+            double.class, optionalOf().compose(Double::valueOf),
+            boolean.class, optionalOf().compose(Boolean::valueOf),
+            char.class, InstantiateClass::charFromString
+    );
+
+    /**
+     * A helper method to represent the Optional::of method reference as an instance of Function
+     * @return a function object for Optional::of
+     * @param <T> the type of objects in the optional
+     */
+    private static <T> Function<T, Optional<T>> optionalOf() {
+        return Optional::of;
+    }
+
+    private static Optional<Object> charFromString(String s) {
+        if (s.length() == 1)
+            return Optional.of(s.charAt(0));
+
+        return Optional.empty();
     }
 }
