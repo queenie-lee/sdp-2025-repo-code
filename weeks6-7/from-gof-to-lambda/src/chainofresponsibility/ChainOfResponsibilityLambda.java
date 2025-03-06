@@ -13,9 +13,9 @@ public class ChainOfResponsibilityLambda {
     }
 
     public static Optional<String> parsePresentation(File file) {
-        return Optional.of(file)
-            .filter(f -> f.getType() == File.Type.PRESENTATION)
-            .map(f -> "Presentation file: " + f.getContent());
+        return Optional.of(file) // nice way of writing "ifs" using lambda expression
+            .filter(f -> f.getType() == File.Type.PRESENTATION) // will get empty optional if false
+            .map(f -> "Presentation file: " + f.getContent()); // "IF" is hidde here.
     }
 
     public static Optional<String> parseAudio(File file) {
@@ -39,10 +39,10 @@ public class ChainOfResponsibilityLambda {
                     ChainOfResponsibilityLambda::parsePresentation,
                     ChainOfResponsibilityLambda::parseAudio,
                     ChainOfResponsibilityLambda::parseVideo)
-                .map(f -> f.apply(file))
-                .flatMap(Optional::stream)
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Unknown file: " + file))
+                .map(f -> f.apply(file)) // .apply exists in type Function
+                .flatMap(Optional::stream) // flatmap removes empty steams
+                .findFirst() // lazy process; find first successful one.
+                .orElseThrow(() -> new RuntimeException("Unknown file: " + file)) // throw an exception if cannot find
         );
     }
 }

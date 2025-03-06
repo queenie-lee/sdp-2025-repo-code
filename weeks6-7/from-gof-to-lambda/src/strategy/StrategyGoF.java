@@ -56,6 +56,7 @@ public class StrategyGoF {
         }
     }
 
+    // Strategy allows us to get slightly different versions of algorithm. Example: sort (uses comparator)
     public static class TextEditor {
         private final TextFormatter textFormatter;
 

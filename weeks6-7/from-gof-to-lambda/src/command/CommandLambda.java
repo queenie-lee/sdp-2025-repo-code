@@ -21,8 +21,9 @@ public class CommandLambda {
         tasks.forEach(Runnable::run);
     }
 
+    // No need to create own classes, anonymous classes are used here.
     public static void main(String... args) {
-        List<Runnable> tasks = new ArrayList<>();
+        List<Runnable> tasks = new ArrayList<>(); // Runnable has a single parameter (run)
         tasks.add(() -> log("Hi"));
         tasks.add(() -> save("Cheers"));
         tasks.add(() -> send("Bye"));

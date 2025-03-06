@@ -14,7 +14,7 @@ public class TemplateGoF {
             resource = new Resource();
         }
 
-        protected abstract void doSomethingWithResource();
+        protected abstract void doSomethingWithResource(); // extension point. We want it to be only overridden
 
         private void closeResource() {
             resource.close();
@@ -26,7 +26,7 @@ public class TemplateGoF {
             try {
                 doSomethingWithResource();
             } finally {
-                closeResource();
+                closeResource(); // always close the resource (guarantee).
             }
         }
     }

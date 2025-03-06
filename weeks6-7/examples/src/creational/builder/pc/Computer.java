@@ -13,7 +13,8 @@ public class Computer {
     private final boolean isGraphicsCardEnabled;
     private final boolean isBluetoothEnabled;
 
-
+    // Can enforce invariants - all parameters are set. Rules can be encoded here, throw an exception if there is a problem.
+    // Objects will always be in a predicable state.
     private Computer(Builder builder) {
         this.HDD = builder.HDD;
         this.RAM = builder.RAM;

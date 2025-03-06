@@ -3,6 +3,10 @@ package visitor;
 import java.util.Arrays;
 import java.util.List;
 
+/* you have classes and elements (square, circle, rectangle)
+* Choice: implement a number of algorithms that work with these elements (e.g. perimeter, area)
+* Visitor: collect them in one place, instead of polluting classes independently.
+* Uses double dispatch */
 public class VisitorGoF {
     public static void main(String... args) {
         List<Element> figures = Arrays.asList(new Circle(4), new Square(5), new Rectangle(6, 7));
@@ -43,7 +47,7 @@ public class VisitorGoF {
 
         @Override
         public <T> T accept(Visitor<T> visitor) {
-            return visitor.visit(this);
+            return visitor.visit(this); // method overloading. Calls visit for square.
         }
     }
 
@@ -75,6 +79,7 @@ public class VisitorGoF {
         }
     }
 
+    // All collected in the same place. Doesn't need to be introduced into subclasses.
     public static class AreaVisitor implements Visitor<Double> {
         public Double visit(Square element) {
             return element.side * element.side;

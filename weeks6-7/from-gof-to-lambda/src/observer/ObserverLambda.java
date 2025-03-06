@@ -8,7 +8,7 @@ public final class ObserverLambda {
 
     public static void main(String... args) {
         var observable = new Observable();
-        observable.register("key1", System.out::println);
+        observable.register("key1", System.out::println); // registered manually because there are no constructors in lambda expressions
         observable.register("key2", System.out::println);
 
         observable.sendEvent("Hello World!");
@@ -18,7 +18,7 @@ public final class ObserverLambda {
         private final Map<Object, Consumer<Object>> listeners =
             new ConcurrentHashMap<>();
 
-        public void register(Object key, Consumer<Object> listener) {
+        public void register(Object key, Consumer<Object> listener) { // registering as listener
             listeners.put(key, listener);
         }
 

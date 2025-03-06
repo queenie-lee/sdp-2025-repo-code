@@ -2,6 +2,7 @@ package template;
 
 import java.util.Random;
 
+// e.g. database connection
 public class Resource implements AutoCloseable {
     public Resource() {
         System.out.println("Resource created");

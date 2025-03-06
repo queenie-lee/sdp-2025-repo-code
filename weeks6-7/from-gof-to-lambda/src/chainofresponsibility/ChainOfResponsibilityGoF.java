@@ -1,5 +1,5 @@
 package chainofresponsibility;
-
+// constructing a chain out of the processors
 public class ChainOfResponsibilityGoF {
 
     public static void main(String... args) {
@@ -20,7 +20,7 @@ public class ChainOfResponsibilityGoF {
     interface FileParser {
         String parse(File file);
 
-        void setNextParser(FileParser next);
+        void setNextParser(FileParser next); // construct a list out of them
     }
 
     public abstract static class AbstractFileParser implements FileParser {
@@ -35,9 +35,9 @@ public class ChainOfResponsibilityGoF {
     public static class TextFileParser extends AbstractFileParser {
         @Override
         public String parse(File file) {
-            if (file.getType() == File.Type.TEXT) {
+            if (file.getType() == File.Type.TEXT) { // checks type, if correct, does something
                 return "Text file: " + file.getContent();
-            } else if (next != null) {
+            } else if (next != null) { // if not, it goes to the next parser
                 return next.parse(file);
             } else {
                 throw new RuntimeException("Unknown file: " + file);

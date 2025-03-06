@@ -1,5 +1,15 @@
 package decorator;
+/* Streams of.... contents of files
+May have different types of Streams --> BufferedStream --> Zip/Compression
 
+Replacing inheritance with a container.
+Still have Stream + basic implementation
+
+Different decorators: one is for bufferisation, one is for compression, etc.
+Can combine them in any way you like
+
+Dynamic subclasses by using different sequences.
+*/
 public class DecoratorGoF {
 
     public static void main(String... args) {
@@ -24,6 +34,7 @@ public class DecoratorGoF {
         }
     }
 
+    // allows us to chain the different subclasses together
     public static abstract class AbstractTaxDecorator implements SalaryCalculator {
         private final SalaryCalculator salaryCalculator;
 

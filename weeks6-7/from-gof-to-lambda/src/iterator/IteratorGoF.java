@@ -10,7 +10,7 @@ public final class IteratorGoF {
 
     public static void main(String... args) {
 
-        for (Integer integer : list) {
+        for (Integer integer : list) { // enhanced for loop, equivalent to the for loop below (lines 17-20)
             System.out.println(integer);
         }
 

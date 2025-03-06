@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 public class DecoratorLambda {
 
     public static void main(String... args) {
+        // standard functional interface (LHS) = lambda expression (RHS)
         DoubleUnaryOperator defaultSalaryCalculator = g -> g / 12;
 
         DoubleUnaryOperator calculator = defaultSalaryCalculator
@@ -23,11 +24,13 @@ public class DecoratorLambda {
                         Taxes::regionalTax,
                         Taxes::healthInsurance));
     }
-
+    // ... is array
+    // array of taxes
     public static double calculateSalary(double annualGross, DoubleUnaryOperator... taxes) {
         DoubleUnaryOperator calculator = Stream.of(taxes)
-                .reduce(DoubleUnaryOperator.identity(),
-                        DoubleUnaryOperator::andThen);
+                // .identity() maps t -> t
+                .reduce(DoubleUnaryOperator.identity(), // constructs chain of objects, each one referring to the next one
+                        DoubleUnaryOperator::andThen); // proper reduction, chains the items together
 
         return calculator.applyAsDouble(annualGross);
 

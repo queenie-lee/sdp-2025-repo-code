@@ -3,19 +3,19 @@ package creational.builder.person;
 
 public class Example {
     public static void main(String[] args) {
-        Person p = Person.Builder
+        Person p = Person.Builder // builders are used for one use.
                 .aPerson()
                 .withFirst("Fred")
                 .withSecond("Bloggs")
                 .withAge(12)
-                .build();
+                .build(); // fluent interface - when all method calls are chained.
         System.out.println(p);
     }
 }
 
 // builder for mutable objects
 class Person {
-    private String first;
+    private String first; // all attributes are mutable
     private String second;
     private int age;
     private String address;
@@ -81,6 +81,8 @@ class Person {
             person = new Person();
         }
 
+        // fluid interface below
+
         public static Builder aPerson() {
             return new Builder();
         }
@@ -107,7 +109,7 @@ class Person {
 
         public Person build() {
             return new Person(person);
-        }
+        } // uses copy constructor
     }
 }
 

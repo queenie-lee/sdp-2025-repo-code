@@ -13,13 +13,13 @@ public final class ObserverGoF {
         observable.sendEvent("Hello World!");
     }
 
-    interface Listener {
+    interface Listener { // functional interface!
         void onEvent(Object event);
     }
 
-    public static final class Observable {
+    public static final class Observable { // button - something that can generate events
         private final Map<Object, Listener> listeners
-            = new ConcurrentHashMap<>();
+            = new ConcurrentHashMap<>(); // for multi-thread environment
 
         public void register(Object key, Listener listener) {
             listeners.put(key, listener);
@@ -29,7 +29,7 @@ public final class ObserverGoF {
             listeners.remove(key);
         }
 
-        public void sendEvent(Object event) {
+        public void sendEvent(Object event) { // called every time a button is pressed
             for (Listener listener : listeners.values()) {
                 listener.onEvent(event);
             }
@@ -38,7 +38,7 @@ public final class ObserverGoF {
 
     public static class Observer1 {
         Observer1(Observable observable) {
-            observable.register(this, new Listener() {
+            observable.register(this, new Listener() { // using anonymous class
                 @Override
                 public void onEvent(Object event) {
                     System.out.println(this.getClass() + ":" + event);

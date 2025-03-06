@@ -9,7 +9,7 @@ import java.util.function.Function;
 public class VisitorLambda {
 
     public static sealed abstract class Shape
-            permits Square, Circle, Rectangle  {
+            permits Square, Circle, Rectangle  { // 3 immediate subclasses.
 
     }
 
@@ -38,13 +38,13 @@ public class VisitorLambda {
             this.height = height;
         }
     }
-
-    static Function<Shape, Double> areaVisitor = new LambdaVisitor<Shape, Double>()
-            .on(Square.class).then(s -> s.side * s.side)
+// input shape, output is double
+    static Function<Shape, Double> areaVisitor = new LambdaVisitor<Shape, Double>() // encoding visitors using lambda expressions
+            .on(Square.class).then(s -> s.side * s.side) // on is class literal; then is applying
             .on(Circle.class).then(c -> Math.PI * c.radius * c.radius)
             .on(Rectangle.class).then(r -> r.height * r.width);
 
-    static Function<Shape, Double> perimeterVisitor = new LambdaVisitor<Shape, Double>()
+    static Function<Shape, Double> perimeterVisitor = new LambdaVisitor<Shape, Double>() // no need to create separate visitor classes. BUT no static type safety.
             .on(Square.class).then(s -> 4 * s.side)
             .on(Circle.class).then(c -> 2 * Math.PI * c.radius)
             .on(Rectangle.class).then(r -> 2 * r.height + 2 * r.width);
@@ -97,9 +97,9 @@ public class VisitorLambda {
 
     // requires pattern matching for switch (from Java 21)
     static Function<Shape, Double> perimeterVisitorWithSwitch = o ->
-            switch (o) {
-                case Square s -> 4 * s.side;
-                case Circle c -> 2 * Math.PI * c.radius;
+            switch (o) { // switch expression, not a statement. Specifies a value. Checking type of o
+                case Square s -> 4 * s.side; // arrow notation allows us to avoid using break
+                case Circle c -> 2 * Math.PI * c.radius; // Circle is type of 'c' AKA pattern matching
                 case Rectangle r -> 2 * r.height + 2 * r.width;
-            };
+            }; // no default, because Shape is sealed. Exhaustive.
 }

@@ -33,7 +33,7 @@ public class InterpreterGoF {
     }
 
     public static void main(String... args) {
-        String expression = "7 3 - 2 1 + *";
+        String expression = "7 3 - 2 1 + *"; // reverse polish notation (PostScript). Doesn't require brackets.
         System.out.println(evaluate(expression));
     }
 
