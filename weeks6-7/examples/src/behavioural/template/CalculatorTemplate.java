@@ -6,12 +6,12 @@ public abstract class CalculatorTemplate implements Calculator {
 
     @Override
     public final void calculate(double operand) {
-        if (this.initialized) {
-            this.result = this.doCalculate(this.result, operand);
+        if (initialized) {
+            result = doCalculate(result, operand);
         }
         else {
-            this.result = operand;
-            this.initialized = true;
+            result = operand;
+            initialized = true;
         }
     }
 
