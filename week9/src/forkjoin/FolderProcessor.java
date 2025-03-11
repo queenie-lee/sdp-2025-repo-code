@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
+import java.util.stream.Stream;
 
 class FolderProcessor extends RecursiveTask<List<String>> {
     // cannot use record structure as it already extends Record
@@ -53,9 +54,10 @@ class FolderProcessor extends RecursiveTask<List<String>> {
                 }
             });
         }
-        return tasks.stream()
-                .map(ForkJoinTask::join)
-                .flatMap(Collection::stream)
+        return Stream.concat(list.stream(),
+                        tasks.stream()
+                                .map(ForkJoinTask::join)
+                                .flatMap(Collection::stream))
                 .toList();
     }
 

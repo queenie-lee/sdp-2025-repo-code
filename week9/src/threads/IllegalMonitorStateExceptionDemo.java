@@ -3,7 +3,7 @@ package threads;
 public class IllegalMonitorStateExceptionDemo {
 
     //This object is used for synchronization among threads.
-    public final static Object obj = new Object();
+    private final static Object obj = new Object();
 
     public static void main(String[] args) {
         WaitingThread waitingThread = new WaitingThread();
