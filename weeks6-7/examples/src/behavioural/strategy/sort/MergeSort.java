@@ -13,17 +13,15 @@ public class MergeSort implements Sorter {
 
         if (l == r) {
             //  Only one element, so it's sorted!
-            int[] res = new int[1];
-            res[0] = array[l];
-            return res;
+            return new int[] { array[l] };
         }
 
         // Find the split point
-        final int c = (int) Math.ceil((r - l + 1) / 2.0);
+        int c = (int) Math.ceil((r - l + 1) / 2.0);
 
         // Recursively sort the two halves
-        final int[] a1 = doMergeSort(array, l, l + c - 1);
-        final int[] a2 = doMergeSort(array, l + c, r);
+        int[] a1 = doMergeSort(array, l, l + c - 1);
+        int[] a2 = doMergeSort(array, l + c, r);
 
         // Merge the results together
         return doMerge(a1, a2);
@@ -43,13 +41,14 @@ public class MergeSort implements Sorter {
         int i1 = 0;
         int i2 = 0;
         for (int i = 0; i < a1.length + a2.length; i++) {
-            if (i1 == a1.length) result[i] = a2[i2++];
-            else if (i2 == a2.length) result[i] = a1[i1++];
-            else if (a1[i1] < a2[i2]) {
-                result[i] = a1[i1++];
-            } else {
+            if (i1 == a1.length)
                 result[i] = a2[i2++];
-            }
+            else if (i2 == a2.length)
+                result[i] = a1[i1++];
+            else if (a1[i1] < a2[i2])
+                result[i] = a1[i1++];
+            else
+                result[i] = a2[i2++];
         }
 
         return result;

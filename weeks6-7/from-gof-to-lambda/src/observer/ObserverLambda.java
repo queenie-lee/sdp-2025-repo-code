@@ -27,7 +27,8 @@ public final class ObserverLambda {
         }
 
         public void sendEvent(Object event) {
-            listeners.values().forEach(listener -> listener.accept(event));
+            listeners.values()
+                    .forEach(listener -> listener.accept(event));
         }
     }
 }

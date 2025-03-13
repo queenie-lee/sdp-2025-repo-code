@@ -4,7 +4,7 @@ public class BubbleSort implements Sorter {
 
     @Override
     public void sort(int[] array) {
-        boolean madeswap = false;
+        boolean madeswap;
 
         do {
             madeswap = false;
@@ -17,9 +17,5 @@ public class BubbleSort implements Sorter {
                 }
             }
         } while (madeswap);
-    }
-
-    public String getId() {
-        return "Bubble";
     }
 }
