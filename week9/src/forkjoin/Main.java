@@ -8,7 +8,7 @@ public class Main {
 
         FolderProcessor tmp = new FolderProcessor("/tmp", "java"); // search through various directories
         FolderProcessor usr = new FolderProcessor("/usr", "java");
-        try (ForkJoinPool pool = new ForkJoinPool()) {
+        try (ForkJoinPool pool = new ForkJoinPool()) { // based on a bunch of platform threads. How many are dependent on the library itself (# of cores on machine). When subimt tasks using fork, get assigned to thread, threads start processing in parallel. **Work stealing** will steal from other threads if not being used, improving core efficiency by shrinking the longest queues, each thread will sit on its own queue.
             pool.execute(tmp);
             pool.execute(usr);
 

@@ -10,13 +10,13 @@ public class CancelATask {
         try (ScheduledExecutorService executor = Executors.newScheduledThreadPool(1)) {
 
             ScheduledFuture<?> future = executor
-                    .schedule(() -> System.out.println("Some Task"), 5, TimeUnit.SECONDS);
+                    .schedule(() -> System.out.println("Some Task"), 5, TimeUnit.SECONDS); // schedule gives us a future object
 
             System.out.println("Before Cancel - Task is done : " + future.isDone());
             System.out.println("Before Cancel - Task is cancelled : " + future.isCancelled());
 
-            if (!future.isDone()) {
-                future.cancel(false);
+            if (!future.isDone()) { // gets status of a task
+                future.cancel(false); // task's flag is set to false so it must finish
             }
 
             System.out.println("Task is done : " + future.isDone());

@@ -47,6 +47,8 @@ public class KillingAThread {
 
 class StopWithFlagTask implements Runnable {
 
+    // Volatile: lightweight version of synchronised. Used for termination. It guarantees that each time this variable is read, we get the last value.
+    // Guarantees that every thread will get the latest value of the variable.
     private volatile boolean flag = false;
 
     public void start() {
@@ -87,13 +89,13 @@ class StopWithInterruptTask implements Runnable {
     }
 
     @Override
-    public void run() {
-        while (!Thread.currentThread().isInterrupted()) {
+    public void run() { // TODO: review 1:10
+        while (!Thread.currentThread().isInterrupted()) { // checking if it was interrupted.
             try {
                 Thread.sleep(500);
                 System.out.println(Thread.currentThread().getName() + " Running...");
             }
-            catch (InterruptedException e) {
+            catch (InterruptedException e) { // relying on java API: interrupt
                 Thread.currentThread().interrupt();
                 System.out.println("Thread was interrupted with reason: " + e.getMessage());
             }

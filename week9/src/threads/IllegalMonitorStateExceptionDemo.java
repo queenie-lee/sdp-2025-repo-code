@@ -19,10 +19,10 @@ public class IllegalMonitorStateExceptionDemo {
         public void run() {
             try {
                 System.out.println(Thread.currentThread().getName() + " starts waiting");
-                synchronized (obj) {
-                    //Calling wait() method outside of synchronized area
+                synchronized (obj) { // calling method wait can only be done within a synchronised block.
+                    //Calling wait() method outside of synchronised area
                     obj.wait();    // throws IllegalMonitorStateException
-                }
+                } // exiting the block: wait releases lock and puts the thread on waiting list
                 System.out.println(Thread.currentThread().getName() + " ends waiting");
             }
             catch (InterruptedException ex) {
@@ -39,10 +39,10 @@ public class IllegalMonitorStateExceptionDemo {
                 // Thread sleep for 5 sec
                 Thread.sleep(5000);
                 System.out.println(Thread.currentThread().getName() + " notifies");
-                synchronized (obj) {
+                synchronized (obj) { // calling notify can only be done within a synchronised block
                     // Calling notify() outside of synchronized area
                     obj.notifyAll();         // throws IllegalMonitorStateException
-                }
+                } // exiting the block: notify picks up the first thread from the waiting list. NotifyAll picks up all threads from waiting list.
             }
             catch (InterruptedException ex) {
                 System.err.println(Thread.currentThread().getName() + " gets interrupted");

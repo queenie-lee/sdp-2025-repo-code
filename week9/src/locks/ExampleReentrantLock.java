@@ -13,12 +13,12 @@ public class ExampleReentrantLock {
     private static int count = 0;
 
     private static void increment() {
-        lock.lock();
+        lock.lock(); // acquire lock
         try {
             count++;
         }
         finally {
-            lock.unlock();
+            lock.unlock(); // release lock. Must use try and finally block.
         }
     }
 

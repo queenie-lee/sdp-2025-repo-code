@@ -2,13 +2,13 @@ package executors;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.*;
-
+// How to terminate a program nicely
 public class ShutdownExecutor {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
 
         System.out.println("WorkerTasks scheduled at " + LocalDateTime.now());
-
+        // three tasks
         ScheduledFuture<String> result1 = executor.schedule(new WorkerTask(
                 "WorkerTask-1"), 10, TimeUnit.SECONDS);
 
@@ -21,7 +21,7 @@ public class ShutdownExecutor {
         Thread.sleep(15_000);
         System.out.println("***********Shutting down the executor " +
                 "service*********");
-        executor.shutdown();
+        executor.shutdown(); // sending shutdown message. Executor will try to shut down tasks. It will not start new tasks
 
         System.out.println("***********Tasks are partially completed*********");
 
@@ -30,7 +30,7 @@ public class ShutdownExecutor {
         System.out.println("Task-3 is done: " + result3.isDone());
 
         System.out.println("***********Waiting for tasks to be complete*********");
-        executor.awaitTermination(1, TimeUnit.MINUTES);
+        executor.awaitTermination(1, TimeUnit.MINUTES); // waiting for all tasks to complete
 
         System.out.println("***********All tasks are completed now*********");
 

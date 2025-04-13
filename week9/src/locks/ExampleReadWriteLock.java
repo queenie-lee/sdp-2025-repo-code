@@ -27,7 +27,7 @@ public class ExampleReadWriteLock {
             });
 
             Runnable readTask = () -> {
-                lock.readLock().lock();
+                lock.readLock().lock(); // allows multiple threads to read, unless there is a write lock.
                 try {
                     System.out.println(map.get("foo"));
                     Utils.sleep(1);

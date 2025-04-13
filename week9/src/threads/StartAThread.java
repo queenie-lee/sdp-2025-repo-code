@@ -18,11 +18,15 @@ public class StartAThread {
         taskWithLambda.start();
 
         // virtual thread (requires Java 21)
+        // startVirtualThread = factory method
         Thread vt = Thread.startVirtualThread(() ->
                 System.out.println("TaskWithLambda started... as a virtual thread"));
 
         // thread pools
-        try (ExecutorService executorService = Executors.newFixedThreadPool(10)) {
+        // newFixedThreadPool = factory method
+        // try with resources block. ExecutorService extends autoclosable. At the end, the resource is closed. Resources will terminate after exiting this block.
+        // Check 40:00 to review try with resources block.
+        try (ExecutorService executorService = Executors.newFixedThreadPool(10)) { // creates a pool of 10 platform threads
             executorService.execute(() ->
                     System.out.println("TaskWithLambda started... from executor"));
         }

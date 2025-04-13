@@ -43,8 +43,8 @@ class FolderProcessor extends RecursiveTask<List<String>> {
                 if (item.isDirectory()) {
                     System.out.format("Examining directory %s%n", item);
                     // create a task to examine the folder/directory
-                    var task = new FolderProcessor(item.getAbsolutePath(), extension);
-                    task.fork(); // run the task
+                    var task = new FolderProcessor(item.getAbsolutePath(), extension); // Recursive
+                    task.fork(); // run the task -- start tasks in parallel
                     tasks.add(task); // add to the list of tasks
                 }
                 else { // an ordinary file

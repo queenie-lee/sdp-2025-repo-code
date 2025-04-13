@@ -19,8 +19,8 @@ public class SimpleThreads {
 
         runnable.run(); // runs in the main thread!
 
-        Thread thread = new Thread(runnable);
-        thread.start();
+        Thread thread = new Thread(runnable); // creating a new thread
+        thread.start(); // starting the thread!
 
         System.out.println("Done!");
     }
@@ -30,10 +30,10 @@ public class SimpleThreads {
         Runnable runnable = () -> {
             try {
                 System.out.println("Foo " + Thread.currentThread().getName());
-                Thread.sleep(1_000);
+                Thread.sleep(1_000); // introduces delay. Use _ helps to group the digits for readability
                 System.out.println("Bar " + Thread.currentThread().getName());
             }
-            catch (InterruptedException ignore) {
+            catch (InterruptedException ignore) { // sleep method throws InterruptedException - waiting for something to happen
             }
         };
 

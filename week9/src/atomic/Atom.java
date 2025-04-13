@@ -10,6 +10,8 @@ public class Atom {
     private static final int NUM_INCREMENTS = 1000;
 
     private static final AtomicInteger atomicInt = new AtomicInteger(0);
+    // introduced because synchronised is very expensive. Not any CPUs have features for atomic integers back in the 90s.
+    // Now, CPUs already implemented incrementAndGet
 
     public static void main(String[] args) {
         testIncrement();

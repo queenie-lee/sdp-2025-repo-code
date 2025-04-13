@@ -22,7 +22,7 @@ public class ExampleReentrantLockTwo {
             executor.submit(() -> {
                 System.out.println("Locked: " + lock.isLocked());
                 System.out.println("Held by me: " + lock.isHeldByCurrentThread());
-                boolean locked = lock.tryLock();
+                boolean locked = lock.tryLock(); // no waiting is involved
                 System.out.println("Lock acquired: " + locked);
             });
         }

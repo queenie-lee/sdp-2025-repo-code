@@ -14,8 +14,8 @@ public class ConcurrentHashMapDemo {
     }
 
     private static void testReduce() {
-        ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>();
-        map.putIfAbsent("foo", "bar");
+        ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>(); // Similar to HashMap
+        map.putIfAbsent("foo", "bar"); // Atomic operation
         map.putIfAbsent("han", "solo");
         map.putIfAbsent("r2", "d2");
         map.putIfAbsent("c3", "p0");

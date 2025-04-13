@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 public class ExampleSemaphore {
     private static final int NUM_INCREMENTS = 10_000;
 
-    private static final Semaphore semaphore = new Semaphore(1);
+    private static final Semaphore semaphore = new Semaphore(1); // number of threads that can happens in parallel
 
     private static int count = 0;
 

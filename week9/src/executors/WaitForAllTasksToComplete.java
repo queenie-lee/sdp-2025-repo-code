@@ -14,15 +14,15 @@ public class WaitForAllTasksToComplete {
 
             List<Future<?>> futures = new ArrayList<>();
             for (int i = 1; i <= 10; i++)
-                futures.add(executor.submit(new DemoRunnable(i)));
+                futures.add(executor.submit(new DemoRunnable(i))); // submit 10 tasks, add the future
 
             System.out.println("###### All tasks are submitted.");
 
             for (Future<?> f : futures)
-                f.get();
+                f.get(); // blocking: will wait until task is finished, then returns the result
 
             System.out.println("###### All tasks are completed.");
-        }
+        } // closing the executor, releasing the 5 threads in the pool.
 
         System.out.println("2 - Runnable and ExecutorService.awaitTermination()");
         try (ExecutorService executor = Executors.newFixedThreadPool(5)) {
@@ -31,11 +31,11 @@ public class WaitForAllTasksToComplete {
                 executor.submit(new DemoRunnable(i));
 
             System.out.println("###### All tasks are submitted.");
-        }
+        } // telling executor to shut down, the tasks need to be completed by this stage.
         System.out.println("###### All tasks are completed.");
 
 
-        System.out.println("3 - Callable");
+        System.out.println("3 - Callable"); // Callable are useful for e.g. reading wind-speed at weather station
         List<Future<Integer>> listOfFutures;
         try (ExecutorService executor = Executors.newFixedThreadPool(10)) {
 
@@ -46,10 +46,10 @@ public class WaitForAllTasksToComplete {
             System.out.println("###### Submitting all tasks.");
 
             listOfFutures = executor.invokeAll(tasks);
-        }
+        } // wait for all tasks to be completed
         System.out.println("###### All tasks are completed. Results: ");
         for (Future<Integer> f : listOfFutures)
-            System.out.print(f.get() + " ");
+            System.out.print(f.get() + " "); // retrieving values
         System.out.println();
 
         System.out.println("4-ExecutorCompletionService");
